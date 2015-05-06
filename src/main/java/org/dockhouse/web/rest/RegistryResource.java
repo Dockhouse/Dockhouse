@@ -26,6 +26,7 @@ import org.dockhouse.service.RegistryService;
 import org.dockhouse.web.rest.dto.RegistryDeleteImageDTO;
 import org.dockhouse.web.rest.dto.RegistryDetailsDTO;
 import org.dockhouse.web.rest.dto.RegistryImageDTO;
+import org.dockhouse.web.rest.dto.RegistryImageStatusDTO;
 import org.dockhouse.web.rest.dto.RegistryImageTagsDTO;
 import org.dockhouse.web.rest.dto.RegistryStatusDTO;
 import org.slf4j.Logger;
@@ -211,5 +212,20 @@ public class RegistryResource {
     public void deleteRegistry(@PathVariable String id) {
         log.debug("REST request to delete Registry : {}", id);
         registryRepository.delete(id);
+    }
+    
+    /**
+     * GET /registries/:id/images/:namespace/:repository/status -> get the "id" registry status.
+     */
+    @RequestMapping(value = "/registries/{id}/images/{namespace}/{repository}/status",
+		    method = RequestMethod.GET,
+		    produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    ResponseEntity<RegistryImageStatusDTO> getImageStatus(@PathVariable String id,
+    		@PathVariable String namespace, @PathVariable String repository) {
+    	String imageName = namespace + "/" + repository;
+        log.debug("REST request to get status from the image in the Registry : {}", id+" : "+imageName);
+        RegistryImageStatusDTO status = registryService.getImageStatus(id, imageName);
+        return new ResponseEntity<RegistryImageStatusDTO>(status, HttpStatus.OK);
     }
 }
