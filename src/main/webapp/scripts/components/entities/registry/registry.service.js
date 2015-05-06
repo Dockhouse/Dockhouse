@@ -38,7 +38,8 @@
             testRegistry : testRegistry,
             getDetail : getDetail,
             getAllImages : getAllImages,
-            deleteImage : deleteImage
+            deleteImage : deleteImage,
+            getImageTags : getImageTags
         };
 
         ////////////////
@@ -181,6 +182,12 @@
         }
 
 
+        /**
+         * Delete an image contained in a registry.
+         * @param registryId - The registry ID.
+         * @param imageId - The image name
+         * @returns a JSON indicating if the image has been deleted
+         */
         function deleteImage(registryId, imageId) {
             return service.one(registryId).one('images').one(imageId).remove()
                 .then(function(data) {
@@ -188,6 +195,23 @@
                 })
                 .catch(function(error) {
                     logger.error('registries/'+registryId+'/images/'+imageId+'',"Error lors de l'appel du service REST registries images",error);
+                    throw error;
+                });
+        }
+
+        /**
+         * Gets the tags of an image contained in a registry.
+         * @param registryId - The registry ID.
+         * @param imageId - The image name
+         * @returns JSON object representing the image tags.
+         */
+        function getImageTags(registryId, imageId){
+            return service.one(registryId).one('images').one(imageId).customGET('tags')
+                .then(function(data){
+                    return data.tags;
+                })
+                .catch(function(error){
+                    logger.error('registries/'+registryId+'/images/'+imageId+'/tags',"Error lors de l'appel du service REST registries images", error);
                     throw error;
                 });
         }
