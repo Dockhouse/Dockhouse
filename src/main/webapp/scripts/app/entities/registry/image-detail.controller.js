@@ -16,7 +16,7 @@
 
         vm.activate = activate;
         vm.sourceRregistry = {};
-        vm.imageTags = "";
+        vm.imageTags = {};
         vm.image = {};
 
         activate();
@@ -40,17 +40,21 @@
         }
 
         function checkImageValidity() {
-            /*Registry.testImage(locationIDs.registry, locationIDs.image)
+            Registry.testImage(locationIDs.registry, locationIDs.image)
+                .then(function(data){
+                    vm.image.name = locationIDs.image; //TODO Mock
+                })
                 .catch(function(error) {
                     logger.error('Unavailable image.' + error);
                     $state.go('error');
-                });*/
+                });
         }
 
         function loadSourceRegistry() {
             Registry.get(locationIDs.registry)
                 .then(function(data){
                     vm.sourceRregistry = data;
+                    console.log(vm.sourceRregistry);
                     Registry.testRegistry(vm.sourceRregistry.id)
                         .then(function(data){
                             vm.sourceRregistry.onlineRegistry = data;
@@ -71,13 +75,14 @@
         }
 
         function loadImageTags() {
-           /* Registry.getImageTags(locationIDs.registry, locationIDs.image)
+           Registry.getImageTags(locationIDs.registry, locationIDs.image)
                 .then(function(data){
-                    vm.imageTags = data;
+                    vm.imageTags = JSON.parse(data);
+                   console.log(vm.imageTags);
                 })
                 .catch(function(error) {
                     logger.error('Unable to get tags for the given image.' + error);
-                });*/
+                });
         }
     }
 })();

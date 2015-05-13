@@ -2,13 +2,14 @@
     "dockhouseApp": {
         "images" : {
             "home": {
-                "title": "Images",
+                "title": "Image",
                 "route": "Images"
             },
             "delete": {
                 "question": "Etes-vous certain de vouloir supprimer l'image : {{id}}?"
             },
             "labels" : {
+                "tags" : "Tag"
             }
         }
     }

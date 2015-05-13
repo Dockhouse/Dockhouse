@@ -19,13 +19,35 @@
 <div class="container well regDetMainContainer">
 
     <h2>
-        <span translate="dockhouseApp.images.home.title">Image</span> : {{imageCtrl.sourceRregistry.name}} &nbsp;
+        <span translate="dockhouseApp.images.home.title">Image</span> : {{imageCtrl.image.name}} &nbsp;
         <i class="btnStatus status-badge" ng-class="{'badge badge-warning': imageCtrl.sourceRregistry.onlineRegistry=='pending',
                             'badge badge-success': imageCtrl.sourceRregistry.onlineRegistry=='online',
                             'badge badge-danger': imageCtrl.sourceRregistry.onlineRegistry=='offline'}"
            translate="dockhouseApp.registry.status.{{imageCtrl.sourceRregistry.onlineRegistry}}">Status</i>
     </h2>
-
+    <div class="row">
+        <div class="col-md-12 regDetContainers">
+            <div class="box box-primary">
+                <div class="row">
+                    <div class="col-md-7">
+                        <h3 >
+                            <span>Informations</span>
+                        </h3>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label translate="dockhouseApp.images.labels.tags">Tags</label>
+                        </div>
+                        <div class="col-md-10">
+                            <p>Latest : {{imageCtrl.imageTags.latest}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <button type="submit"
                 ui-sref="registryDetail({id:imageCtrl.sourceRregistry.id})"
