@@ -120,12 +120,11 @@
                             <tr ng-repeat="image in detailCtrl.registryImages | filter:filter | orderBy:predicate:reverse">
                                 <td>
                                     <h5>
-                                        <i class="fa fa-cube"></i> <a href="">{{image.name}}</a>
+                                        <i class="fa fa-cube"></i> <a ui-sref="imageDetail({imageID:image.name})">{{image.name}}</a>
                                         <div class="imageDeleteBtn clickable" ng-click="detailCtrl.openRemoveImageModal(image)">
                                             <span class="glyphicon glyphicon-remove-circle"></span>
                                         </div>
                                     </h5>
-
                                 </td>
                             </tr>
                             <tr ng-show="!detailCtrl.registryImages.length">

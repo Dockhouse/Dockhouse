@@ -42,7 +42,7 @@ angular.module('dockhouseApp')
             })
             .state('registryDetail', {
                 parent: 'registry',
-                url: '/registry/:id',
+                url: '/:id',
                 data: {
                     roles: ['ROLE_USER'],
                     pageTitle: 'dockhouseApp.registry.detail.title',
@@ -60,6 +60,26 @@ angular.module('dockhouseApp')
                         return $translate.refresh();
                     }]
                 }
+            })
+            .state('imageDetail', {
+                parent: 'registryDetail',
+                url: '/images/:imageID',
+                data: {
+                    roles: ['ROLE_USER'],
+                    pageTitle: 'dockhouseApp.images.home.title',
+                    displayName: 'dockhouseApp.images.home.route'
+                },
+                views: {
+                    'content@': {
+                        templateUrl: 'scripts/app/entities/registry/image-detail.html',
+                        controller: 'ImageDetailController as imageCtrl'
+                    }
+                },
+                resolve: {
+                    translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                        $translatePartialLoader.addPart('image');
+                        return $translate.refresh();
+                    }]
+                }
             });
-
     });

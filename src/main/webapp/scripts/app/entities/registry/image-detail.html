@@ -1,0 +1,36 @@
+<!--
+
+     Copyright (C) 2015  Dockhouse project org. ( http://dockhouse.github.io/ )
+
+     Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+             http://www.gnu.org/licenses/lgpl.html
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+
+-->
+
+<div class="container well regDetMainContainer">
+
+    <h2>
+        <span translate="dockhouseApp.images.home.title">Image</span> : {{imageCtrl.sourceRregistry.name}} &nbsp;
+        <i class="btnStatus status-badge" ng-class="{'badge badge-warning': imageCtrl.sourceRregistry.onlineRegistry=='pending',
+                            'badge badge-success': imageCtrl.sourceRregistry.onlineRegistry=='online',
+                            'badge badge-danger': imageCtrl.sourceRregistry.onlineRegistry=='offline'}"
+           translate="dockhouseApp.registry.status.{{imageCtrl.sourceRregistry.onlineRegistry}}">Status</i>
+    </h2>
+
+    <div class="row">
+        <button type="submit"
+                ui-sref="registryDetail({id:imageCtrl.sourceRregistry.id})"
+                class="btn btn-info">
+            <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+        </button>
+    </div>
+</div>
