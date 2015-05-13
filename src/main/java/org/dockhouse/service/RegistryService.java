@@ -29,8 +29,10 @@ import org.dockhouse.service.registryapi.RegistryAPIServiceFactory;
 import org.dockhouse.web.rest.dto.RegistryDeleteImageDTO;
 import org.dockhouse.web.rest.dto.RegistryDetailsDTO;
 import org.dockhouse.web.rest.dto.RegistryImageDTO;
+import org.dockhouse.web.rest.dto.RegistryImageStatusDTO;
 import org.dockhouse.web.rest.dto.RegistryImageTagsDTO;
 import org.dockhouse.web.rest.dto.RegistryStatusDTO;
+import org.dockhouse.web.rest.dto.StatusDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -154,6 +156,39 @@ public class RegistryService {
 			}
 		}
 		return tags;
+	}
+	
+	public RegistryImageStatusDTO getImageStatus(String id, String imageName){
+		RegistryImageStatusDTO status = new RegistryImageStatusDTO();
+		status.setStatus(RegistryImageStatusDTO.STATUT_OFFLINE);
+		
+		Registry registry = registryRepository.findOne(id);
+		if(registry != null){
+			try{
+				RegistryAPIService registreAPI = registryAPIServiceFactory.get(registry);
+				List<RegistryImageDTO> registryImagesList = new ArrayList<RegistryImageDTO>();
+				registryImagesList = registreAPI.getImages(registry);
+				if(imageExistInListImages(imageName, registryImagesList)){
+					status.setStatus(RegistryImageStatusDTO.STATUT_ONLINE);
+				}
+			}
+			catch(IllegalArgumentException e){
+				log.debug(e.getMessage());
+			}
+		}
+		
+		return status;
+	}
+	
+	private boolean imageExistInListImages(String imageName, List<RegistryImageDTO> list){
+		boolean ret = false;
+		for(int i=0; i < list.size(); i++){
+			if(imageName.equals(list.get(i).getName())){
+				ret = true;
+				break;
+			}
+		}
+		return ret;
 	}
 
 }
